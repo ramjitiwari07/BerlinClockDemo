@@ -30,56 +30,49 @@ fun BerlinerClockScreenWithInput(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp), // 4. Add some padding for better aesthetics
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             16.dp, Alignment.CenterVertically
-        ) // 5. Consistent spacing
+        )
     ) {
-        // 6. Improved TextField
-        OutlinedTextField( // Or TextField, OutlinedTextField is often preferred for clarity
+        OutlinedTextField(
             value = timeInput,
             onValueChange = { newTime ->
                 viewModel.onTimeInputChange(newTime)
             },
             label = { Text("Enter Time (HH:MM:SS)") },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth(0.8f) // Make it take up some width
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Button(
             onClick = {
-                // 7. Update clockUiState on button click
                 viewModel.convertTimeToBerlinClock()
-            }, modifier = Modifier.fillMaxWidth(0.6f) // Give button some width
+            }, modifier = Modifier.fillMaxWidth(0.6f)
         ) {
-            Text("Convert to Berlin Clock") // 8. More descriptive button text
+            Text("Convert to Berlin Clock")
         }
 
-        // 9. Displaying the Berlin Clock state (Consider a dedicated Composable)
+        // Displaying the Berlin Clock state
         if (clockUiState.errorMessage != null) {
             Text(
                 text = clockUiState.errorMessage!!,
-                color = MaterialTheme.colorScheme.error, // Use theme color for errors
+                color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelMedium
             )
         } else {
-            // It's generally better to create a dedicated Composable for displaying the clock
-            // to keep this Composable cleaner.
             BerlinClockDisplay(clockUiState)
         }
     }
 }
 
-//  Dedicated Composable for displaying the Berlin Clock
 @Composable
 fun BerlinClockDisplay(clockUiState: ClockUiState) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp) // Spacing between clock rows
+        verticalArrangement = Arrangement.spacedBy(8.dp) // Spacing b/w clock rows
     ) {
-        // You would typically represent these with colored Boxes or similar UI elements
-        // For simplicity, we're still using Text here.
         Text(clockUiState.seconds.name)
         Text(clockUiState.fiveHours.joinToString("") { it.name.first().toString() })
         Text(clockUiState.oneHour.joinToString("") { it.name.first().toString() })
@@ -89,11 +82,10 @@ fun BerlinClockDisplay(clockUiState: ClockUiState) {
     }
 }
 
-// Preview for easy visualization in Android Studio
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MaterialTheme { // Assuming you're using Material Theme
+    MaterialTheme {
         BerlinerClockScreenWithInput(modifier = Modifier)
     }
 }
