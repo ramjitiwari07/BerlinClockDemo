@@ -20,7 +20,7 @@ class BerlinClock {
             return ClockUiState(errorMessage = "Invalid time value. Hours (0-23), Minutes (0-59), Seconds (0-59).")
         }
 
-        // ... rest of the conversion logic
+        // ...conversion logic
         return ClockUiState(
             seconds = if (seconds % 2 == 0) LampState.R else LampState.O,
             fiveHours = calculateLampStates(hours / 5, 4, LampState.R, LampState.O),
@@ -30,7 +30,7 @@ class BerlinClock {
                 11,
                 LampState.Y,
                 LampState.O
-            ), // Special handling for fiveMinutes
+            ), // handling for fiveMinutes
             oneMinute = calculateLampStates(minutes % 5, 4, LampState.Y, LampState.O)
         )
     }
@@ -44,14 +44,14 @@ class BerlinClock {
         return List(activeCount) { activeState } + List(totalLamps - activeCount) { inactiveState }
     }
 
-    // Special handling for the five-minute row as the 3rd, 6th, 9th lamps are Red (R) if active.
+    // handling for the five-minute row as the 3rd, 6th, 9th lamps are Red (R) if active.
     private fun calculateFiveMinuteLampStates(
-        activeMinutesInFiveBlock: Int, // How many 5-minute blocks are lit
+        activeMinutesInFiveBlock: Int,
         totalLamps: Int,
         activeYellowState: LampState, // Typically Y
         inactiveState: LampState      // Typically O
     ): List<LampState> {
-        val redState = LampState.R // Special state for 3rd, 6th, 9th
+        val redState = LampState.R // state for 3rd, 6th, 9th
         return List(totalLamps) { index ->
             if (index < activeMinutesInFiveBlock) {
                 if ((index + 1) % 3 == 0) redState else activeYellowState
