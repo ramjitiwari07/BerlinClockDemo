@@ -8,5 +8,5 @@ data class ClockUiState(
     val oneHour: List<LampState> = emptyList(),
     val fiveMinutes: List<LampState> = emptyList(),
     val oneMinute: List<LampState> = emptyList(),
-    val errorMessage: String? = null // For displaying errors
+    val errorMessage: String? = "error_message" // For displaying errors
 )
