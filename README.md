@@ -19,7 +19,6 @@ You can also use CLI to build to install app
  ./gradlew installDebug
 ```
 
-
 # Application Screens
 ![app_screen](https://github.com/ramjitiwari07/BerlinClockDemo/blob/main/berlinclock.jpg "App Screen")
 
